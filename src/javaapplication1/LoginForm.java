@@ -82,6 +82,11 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         jButton1.setText("Log In");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Username:");
 
@@ -182,10 +187,59 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+Connection conn = null;
+        try {
+            String driverName = "oracle.jdbc.driver.OracleDriver";
+            Class.forName(driverName);
+            String serverName = "localhost";
+            String serverPort = "1521";
+            String sid = "XE";
+            String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
+            String username = "DBMS";
+            String password = "123456789";
+            conn = DriverManager.getConnection(url, username, password);
+
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Could not find the database driver" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Could not connect to the database" + e.getMessage());// TODO add your handling code here:
+           
+    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+                Statement st = conn.createStatement();
+                ResultSet rs=null;
+                String reg= new String(jTextField1.getText());
+                String pass=new String(jPasswordField1.getText());
+                rs = st.executeQuery("select REG_NUMBER,password from STUDENT");
+                //Service_Registration Sr=new Service_Registration();
+                LibrarianWelcome AL=new LibrarianWelcome();
+                //shopkeeperLanding SL = new shopkeeperLanding();
+                
+                while (rs.next()){
+                    
+                    if(reg.equals(rs.getString(1)) && pass.equals(rs.getString(2)))
+                    {
+                        String rights=new String(rs.getString(2));
+                        System.out.println("Could not find the database driver");
+                        AL.setVisible(true);
+                        this.dispose();
+                        //if (rights.equals("USER"))
+                        {
+                        //Sr.setVisible(true);
+                        //Sr.jLabel1.setText(this.jTextField1.getText());
+                        //First_Page.this.dispose();
+                    }   }}
+                        
+          } catch (SQLException e) {
+
+                e.printStackTrace();
+            }}
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+       public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

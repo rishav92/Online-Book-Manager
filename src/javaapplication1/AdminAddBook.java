@@ -177,7 +177,7 @@ public class AdminAddBook extends javax.swing.JFrame {
             String serverPort = "1521";
             String sid = "XE";
             String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
-            String username = "SYSTEM";
+            String username = "DBMS";
             String password = "123456789";
             conn = DriverManager.getConnection(url, username, password);
             System.out.println("Successfully connected");
@@ -188,15 +188,28 @@ public class AdminAddBook extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.out.println("Could not connect to the database" + e.getMessage());
        }
-        
+    
         try{
             Statement st = conn.createStatement();
             ResultSet rs=null;
-            String name = jTextField1.getText();
-            rs = st.executeQuery("insert into qwe values('"+name+"')");
-                        }
+            String isbn = jTextField5.getText();
+            String Bname = jTextField1.getText();
+            String Author = jTextField2.getText();
+            String publisher = jTextField3.getText();
+            String category = jTextField4.getText();
+            Long price = Long.parseLong(jTextField6.getText());
+            System.out.println("password matched");
+            rs = st.executeQuery("insert into books values('"+isbn+"','"+Bname+"','"+Author+"','"+publisher+"','"+category+"',"+price+")");
+            System.out.println("password matched");
+            jOptionPane1.showMessageDialog(null,"Congratulations!"+"\nBoook Added");
+            LibrarianWelcome frame=new LibrarianWelcome();
+            frame.setVisible(true);
+            this.dispose();
+        }
+            //rs = st.executeQuery("insert into qwe values('"+name+"')");
+                        
         catch (SQLException e) {
-            e.getMessage();
+            jOptionPane1.showMessageDialog(null,e.getMessage());
         }
         
         // TODO add your handling code here:
