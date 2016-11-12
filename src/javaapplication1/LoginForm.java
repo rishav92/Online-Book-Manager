@@ -139,7 +139,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addGap(93, 93, 93)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,11 +157,11 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -188,7 +188,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-Connection conn = null;
+    Connection conn = null;
         try {
             String driverName = "oracle.jdbc.driver.OracleDriver";
             Class.forName(driverName);
@@ -205,8 +205,7 @@ Connection conn = null;
             System.out.println("Could not find the database driver" + e.getMessage());
         } catch (SQLException e) {
             System.out.println("Could not connect to the database" + e.getMessage());// TODO add your handling code here:
-           
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
         try {
                 Statement st = conn.createStatement();
                 ResultSet rs=null;
@@ -220,22 +219,27 @@ Connection conn = null;
                 while (rs.next()){
                     
                     if(reg.equals(rs.getString(1)) && pass.equals(rs.getString(2)))
-                    {
-                        String rights=new String(rs.getString(2));
-                        System.out.println("Could not find the database driver");
-                        AL.setVisible(true);
-                        this.dispose();
-                        //if (rights.equals("USER"))
                         {
-                        //Sr.setVisible(true);
-                        //Sr.jLabel1.setText(this.jTextField1.getText());
-                        //First_Page.this.dispose();
-                    }   }}
-                        
-          } catch (SQLException e) {
+                            AL.setVisible(true);
+                            //AL.jLabel4.setText(this.jTextField1.getText());
+                            this.dispose();
+                        }
+                    else
+                    {
+                        jLabel4.setText("Invalid credential! Login Denied!");
+                    
+                    }
+                    }
+                
+                
+                rs.close();
+            } catch (Exception e) {
 
                 e.printStackTrace();
-            }}
+            }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+  
     /**
      * @param args the command line arguments
      */

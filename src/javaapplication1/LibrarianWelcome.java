@@ -35,8 +35,6 @@ public class LibrarianWelcome extends javax.swing.JFrame {
         jOptionPane1 = new javax.swing.JOptionPane();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -47,10 +45,11 @@ public class LibrarianWelcome extends javax.swing.JFrame {
         jLabel1.setText("Welcome Librarian");
 
         jButton1.setText("Logout");
-
-        jButton2.setText("OK");
-
-        jButton3.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("search Book");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -77,12 +76,6 @@ public class LibrarianWelcome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 134, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,11 +103,7 @@ public class LibrarianWelcome extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addGap(39, 39, 39)
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,8 +205,41 @@ Connection conn = null;
     }//GEN-LAST:event_jButton6ActionPerformed
     catch (SQLException e) {
             jOptionPane1.showMessageDialog(null,e.getMessage());
-    }}/**
-     * 
+}}
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       Connection conn = null;
+        try {
+            String driverName = "oracle.jdbc.driver.OracleDriver";
+            Class.forName(driverName);
+            String serverName = "localhost";
+            String serverPort = "1521";
+            String sid = "XE";
+            String url = "jdbc:oracle:thin:@" + serverName + ":" + serverPort + ":" + sid;
+            String username = "DBMS";
+            String password = "123456789";
+            conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Successfully connected");
+            
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Could not find the database driver" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Could not connect to the database" + e.getMessage());
+       }
+        
+        try{
+            Statement st = conn.createStatement();
+            LoginForm frame=new LoginForm();
+            frame.setVisible(true);
+            this.dispose();
+            // TODO add your handling code here:
+    }                                        
+    catch (SQLException e) {
+            jOptionPane1.showMessageDialog(null,e.getMessage());
+} // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+     /** 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -254,8 +276,6 @@ Connection conn = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
